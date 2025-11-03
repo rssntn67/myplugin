@@ -40,3 +40,19 @@ Once installed, the plugin makes the following Karaf shell commands available:
 * opennms-myplugin:push-topology
 
 You can also access the REST endpoint mounted by the plugin at `http://localhost:8980/opennms/rest/myplugin/ping`
+
+Fixing properties in pom.xml to let compile the code
+
+diff -r myplugin/pom.xml myplugin-fixed/pom.xml
+19c19
+<         <karaf.version>4.3.6</karaf.version>
+---
+>         <karaf.version>4.3.10</karaf.version>
+26c26
+<         <opennms.api.version>1.0.0</opennms.api.version>
+---
+>         <opennms.api.version>1.6.0</opennms.api.version>
+113c113
+<                     <version>4.2.1</version>
+---
+>                     <version>5.1.9</version>
