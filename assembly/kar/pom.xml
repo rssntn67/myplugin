@@ -25,7 +25,7 @@
                         </goals>
                         <configuration>
                             <featuresFile>mvn:it.arsinfo/karaf-features/${project.version}/xml</featuresFile>
-                            <finalName>opennms-myplugin-plugin</finalName>
+                            <finalName>opennms-myplugin-plugin-${project.version}</finalName>
                             <ignoreDependencyFlag>true</ignoreDependencyFlag>
                             <archive>
                               <manifestEntries>
