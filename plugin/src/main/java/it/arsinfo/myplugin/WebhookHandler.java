@@ -20,4 +20,12 @@ public interface WebhookHandler {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     Response handleWebhook(String body);
+
+
+    @POST
+    @Path("/sync")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    Response handleSync(String body);
+
 }

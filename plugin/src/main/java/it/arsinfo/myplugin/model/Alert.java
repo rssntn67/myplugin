@@ -31,6 +31,17 @@ public class Alert {
     @JsonProperty("description")
     private String description;
 
+    public String getAlarmAckUse() {
+        return alarmAckUse;
+    }
+
+    public void setAlarmAckUse(String alarmAckUse) {
+        this.alarmAckUse = alarmAckUse;
+    }
+
+    @JsonProperty("alarmackuser")
+    private String alarmAckUse;
+
     private Map<String,String> attributes = new LinkedHashMap<>();
 
     public Status getStatus() {
