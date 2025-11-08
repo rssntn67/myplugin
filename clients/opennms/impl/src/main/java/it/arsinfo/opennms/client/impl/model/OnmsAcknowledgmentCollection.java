@@ -12,7 +12,7 @@
 
 package it.arsinfo.opennms.client.impl.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,28 +22,28 @@ import java.util.Objects;
  */
 
 public class OnmsAcknowledgmentCollection {
-  @SerializedName("objects")
-  private List<OnmsAcknowledgment> objects = null;
+  @JsonProperty("onmsAcknowledgment")
+  private List<OnmsAcknowledgment> onmsAcknowledgment = null;
 
-  @SerializedName("offset")
+  @JsonProperty("offset")
   private Integer offset = null;
 
-  @SerializedName("count")
+  @JsonProperty("count")
   private Integer count = null;
 
-  @SerializedName("totalCount")
+  @JsonProperty("totalCount")
   private Integer totalCount = null;
 
-  public OnmsAcknowledgmentCollection objects(List<OnmsAcknowledgment> objects) {
-    this.objects = objects;
+  public OnmsAcknowledgmentCollection onmsAcknowledgment(List<OnmsAcknowledgment> objects) {
+    this.onmsAcknowledgment = objects;
     return this;
   }
 
   public OnmsAcknowledgmentCollection addObjectsItem(OnmsAcknowledgment objectsItem) {
-    if (this.objects == null) {
-      this.objects = new ArrayList<OnmsAcknowledgment>();
+    if (this.onmsAcknowledgment == null) {
+      this.onmsAcknowledgment = new ArrayList<OnmsAcknowledgment>();
     }
-    this.objects.add(objectsItem);
+    this.onmsAcknowledgment.add(objectsItem);
     return this;
   }
 
@@ -51,12 +51,12 @@ public class OnmsAcknowledgmentCollection {
    * Get objects
    * @return objects
   **/
-  public List<OnmsAcknowledgment> getObjects() {
-    return objects;
+  public List<OnmsAcknowledgment> getOnmsAcknowledgment() {
+    return onmsAcknowledgment;
   }
 
-  public void setObjects(List<OnmsAcknowledgment> objects) {
-    this.objects = objects;
+  public void setOnmsAcknowledgment(List<OnmsAcknowledgment> objects) {
+    this.onmsAcknowledgment = objects;
   }
 
   public OnmsAcknowledgmentCollection offset(Integer offset) {
@@ -120,7 +120,7 @@ public class OnmsAcknowledgmentCollection {
       return false;
     }
     OnmsAcknowledgmentCollection onmsAcknowledgmentCollection = (OnmsAcknowledgmentCollection) o;
-    return Objects.equals(this.objects, onmsAcknowledgmentCollection.objects) &&
+    return Objects.equals(this.onmsAcknowledgment, onmsAcknowledgmentCollection.onmsAcknowledgment) &&
         Objects.equals(this.offset, onmsAcknowledgmentCollection.offset) &&
         Objects.equals(this.count, onmsAcknowledgmentCollection.count) &&
         Objects.equals(this.totalCount, onmsAcknowledgmentCollection.totalCount);
@@ -128,7 +128,7 @@ public class OnmsAcknowledgmentCollection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(objects, offset, count, totalCount);
+    return Objects.hash(onmsAcknowledgment, offset, count, totalCount);
   }
 
 
@@ -137,7 +137,7 @@ public class OnmsAcknowledgmentCollection {
     StringBuilder sb = new StringBuilder();
     sb.append("class OnmsAcknowledgmentCollection {\n");
     
-    sb.append("    objects: ").append(toIndentedString(objects)).append("\n");
+    sb.append("    objects: ").append(toIndentedString(onmsAcknowledgment)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");

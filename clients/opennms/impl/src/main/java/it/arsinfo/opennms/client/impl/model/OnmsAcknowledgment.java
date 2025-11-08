@@ -12,42 +12,37 @@
 
 package it.arsinfo.opennms.client.impl.model;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 /**
  * OnmsAcknowledgment
  */
 public class OnmsAcknowledgment {
-  @SerializedName("id")
+  @JsonProperty("id")
   private Integer id = null;
-
-  @SerializedName("log")
-  private String log = null;
 
   /**
    * Gets or Sets ackType
    */
-  @JsonAdapter(AckTypeEnum.Adapter.class)
   public enum AckTypeEnum {
-    @SerializedName("Unspecified")
-    UNSPECIFIED("Unspecified"),
-    @SerializedName("Alarm")
-    ALARM("Alarm"),
-    @SerializedName("Notification")
-    NOTIFICATION("Notification");
+    @JsonProperty("UNSPECIFIED")
+    UNSPECIFIED("UNSPECIFIED"),
+    @JsonProperty("ALARM")
+    ALARM("ALARM"),
+    @JsonProperty("NOTIFICATION")
+    NOTIFICATION("NOTIFICATION");
 
     private String value;
 
     AckTypeEnum(String value) {
       this.value = value;
     }
+
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -56,6 +51,8 @@ public class OnmsAcknowledgment {
     public String toString() {
       return String.valueOf(value);
     }
+
+    @JsonCreator
     public static AckTypeEnum fromValue(String input) {
       for (AckTypeEnum b : AckTypeEnum.values()) {
         if (b.value.equals(input)) {
@@ -64,80 +61,64 @@ public class OnmsAcknowledgment {
       }
       return null;
     }
-    public static class Adapter extends TypeAdapter<AckTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AckTypeEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
+  }
 
-      @Override
-      public AckTypeEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return AckTypeEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("ackType")
+  @JsonProperty("ackType")
   private AckTypeEnum ackType = null;
 
   /**
    * Gets or Sets ackAction
    */
-  @JsonAdapter(AckActionEnum.Adapter.class)
+
   public enum AckActionEnum {
-    @SerializedName("Unspecified")
-    UNSPECIFIED("Unspecified"),
-    @SerializedName("Acknowledge")
-    ACKNOWLEDGE("Acknowledge"),
-    @SerializedName("Unacknowledge")
-    UNACKNOWLEDGE("Unacknowledge"),
-    @SerializedName("Escalate")
-    ESCALATE("Escalate"),
-    @SerializedName("Clear")
-    CLEAR("Clear");
+      @JsonProperty("UNSPECIFIED")
+      UNSPECIFIED("UNSPECIFIED"),
+      @JsonProperty("ACKNOWLEDGE")
+      ACKNOWLEDGE("ACKNOWLEDGE"),
+      @JsonProperty("UNACKNOWLEDGE")
+      UNACKNOWLEDGE("UNACKNOWLEDGE"),
+      @JsonProperty("ESCALATE")
+      ESCALATE("ESCALATE"),
+      @JsonProperty("CLEAR")
+      CLEAR("CLEAR");
 
-    private String value;
+      private String value;
 
-    AckActionEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static AckActionEnum fromValue(String input) {
-      for (AckActionEnum b : AckActionEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
+      AckActionEnum(String value) {
+          this.value = value;
       }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<AckActionEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AckActionEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
+
+      @JsonValue
+      public String getValue() {
+          return value;
       }
 
       @Override
-      public AckActionEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return AckActionEnum.fromValue((String)(value));
+      public String toString() {
+          return String.valueOf(value);
       }
+  }
+
+  @JsonCreator
+  public static AckActionEnum fromValue(String input) {
+  for (AckActionEnum b : AckActionEnum.values()) {
+    if (b.value.equals(input)) {
+      return b;
     }
-  }  @SerializedName("ackAction")
+  }
+  return null;
+}
+
+  @JsonProperty("ackAction")
   private AckActionEnum ackAction = null;
 
-  @SerializedName("ackUser")
+  @JsonProperty("ackUser")
   private String ackUser = null;
 
-  @SerializedName("ackTime")
+  @JsonProperty("ackTime")
   private Date ackTime = null;
 
-  @SerializedName("refId")
+  @JsonProperty("refId")
   private Integer refId = null;
 
   public OnmsAcknowledgment id(Integer id) {
@@ -157,22 +138,10 @@ public class OnmsAcknowledgment {
     this.id = id;
   }
 
-  public OnmsAcknowledgment log(String log) {
-    this.log = log;
-    return this;
-  }
-
    /**
    * Get log
    * @return log
   **/
-  public String getLog() {
-    return log;
-  }
-
-  public void setLog(String log) {
-    this.log = log;
-  }
 
   public OnmsAcknowledgment ackType(AckTypeEnum ackType) {
     this.ackType = ackType;
@@ -270,7 +239,6 @@ public class OnmsAcknowledgment {
     }
     OnmsAcknowledgment onmsAcknowledgment = (OnmsAcknowledgment) o;
     return Objects.equals(this.id, onmsAcknowledgment.id) &&
-        Objects.equals(this.log, onmsAcknowledgment.log) &&
         Objects.equals(this.ackType, onmsAcknowledgment.ackType) &&
         Objects.equals(this.ackAction, onmsAcknowledgment.ackAction) &&
         Objects.equals(this.ackUser, onmsAcknowledgment.ackUser) &&
@@ -280,7 +248,7 @@ public class OnmsAcknowledgment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, log, ackType, ackAction, ackUser, ackTime, refId);
+    return Objects.hash(id, ackType, ackAction, ackUser, ackTime, refId);
   }
 
 
@@ -290,7 +258,6 @@ public class OnmsAcknowledgment {
     sb.append("class OnmsAcknowledgment {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    log: ").append(toIndentedString(log)).append("\n");
     sb.append("    ackType: ").append(toIndentedString(ackType)).append("\n");
     sb.append("    ackAction: ").append(toIndentedString(ackAction)).append("\n");
     sb.append("    ackUser: ").append(toIndentedString(ackUser)).append("\n");
