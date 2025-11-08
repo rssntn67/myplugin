@@ -19,9 +19,9 @@
         <log4j.version>2.17.2</log4j.version>
         <metrics.version>4.1.12.1</metrics.version>
         <mockito.version>2.18.0</mockito.version>
-        <okhttp.version>3.10.0</okhttp.version>
-        <okhttp.bundle.version>3.10.0_2</okhttp.bundle.version>
-        <okio.bundle.version>1.14.0_1</okio.bundle.version>
+        <okhttp.version>4.10.0</okhttp.version>
+        <okhttp.bundle.version>4.10.0_3</okhttp.bundle.version>
+        <okio.bundle.version>3.8.0_1</okio.bundle.version>
         <opennms.api.version>1.6.1</opennms.api.version>
         <osgi.version>7.0.0</osgi.version>
         <osgi.compendium.version>5.0.0</osgi.compendium.version>
@@ -171,8 +171,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -195,5 +195,6 @@
         <module>assembly</module>
         <module>plugin</module>
         <module>karaf-features</module>
+        <module>clients</module>
     </modules>
 </project>

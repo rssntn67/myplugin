@@ -15,8 +15,7 @@
     <name>OpenNMS :: Plugins :: My Plugin :: Clients</name>
 
     <modules>
-        <module>api</module>
-        <module>v3</module>
+        <module>opennms</module>
     </modules>
 
 </project>

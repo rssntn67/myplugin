@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nutanix-client-api</artifactId>
+    <artifactId>myplugin-clients-opennms-api</artifactId>
     <name>OpenNMS :: Plugins :: My Plugin :: Clients :: OpenNMS :: API</name>
     <packaging>bundle</packaging>
 
