@@ -7,7 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>myplugin-plugin</artifactId>
-    <name>OpenNMS :: Plugins :: My Plugin</name>
+    <name>OpenNMS :: Plugins :: My Plugin :: Plugin</name>
     <packaging>bundle</packaging>
 
     <build>

@@ -29,7 +29,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.arsinfo.myplugin.clients.opennms.v1.*</Export-Package>
+                        <Export-Package>it.arsinfo.myplugin.clients.opennms.impl.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
