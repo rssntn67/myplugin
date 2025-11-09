@@ -6,15 +6,44 @@
                 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
 
     <!-- Pull in service implementations from the OSGi registry -->
+
     <reference id="alarmDao" interface="org.opennms.integration.api.v1.dao.AlarmDao" availability="optional"/>
     <reference id="edgeDao" interface="org.opennms.integration.api.v1.dao.EdgeDao" availability="optional"/>
     <reference id="eventForwarder" interface="org.opennms.integration.api.v1.events.EventForwarder" availability="optional"/>
-    <reference id="apiClientProvider" interface="it.arsinfo.opennms.client.api.ApiClientProvider" />
-    <reference id="apiClient" interface="it.arsinfo.spring.client.ApiClient" />
+    <reference id="onmsApiClientProvider" interface="it.arsinfo.opennms.client.api.ApiClientProvider" />
+    <reference id="springApiClientProvider" interface="it.arsinfo.spring.client.ApiClientProvider" />
+    <reference id="snmpApiClientProvider" interface="it.arsinfo.snmp.client.ApiClientProvider" />
+
+    <!-- Configuration stored in $OPENNMS_HOME/etc/it.arsinfo.myplugin.cfg file -->
+    <cm:property-placeholder id="mypluginProperties" persistent-id="it.arsinfo.myplugin" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="opennms.client.url" value="http://localhost:8980/opennms/rest" />
+            <cm:property name="opennms.client.username" value="admin" />
+            <cm:property name="opennms.client.password" value="admin" />
+            <cm:property name="spring.client.url" value="http://localhost:8080/api/v1"/>
+            <cm:property name="snmp.client.address" value="udp:localhost/161" />
+            <cm:property name="snmp.client.version" value="1" />
+            <cm:property name="snmp.client.community" value="private" />
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <bean id="clientManager" class="it.arsinfo.myplugin.client.ClientManager">
+        <argument ref="onmsApiClientProvider"/>
+        <argument value="${opennms.client.url}"/>
+        <argument value="${opennms.client.username}"/>
+        <argument value="${opennms.client.password}"/>
+        <argument ref="springApiClientProvider"/>
+        <argument value="${spring.client.url}"/>
+        <argument ref="snmpApiClientProvider"/>
+        <argument value="${snmp.client.address}"/>
+        <argument value="${snmp.client.version"/>
+        <argument value="${snmp.client.community}"/>
+
+    </bean>
 
     <!-- Build our forwarder bean -->
     <bean id="alarmForwarder" class="it.arsinfo.myplugin.AlarmForwarder">
-        <argument ref="apiClient"/>
+        <argument ref="clientManager"/>
         <argument ref="eventForwarder"/>
     </bean>
     <!-- Expose the forwarder as a AlarmLifecycleListener so we get callbacks -->
@@ -22,17 +51,12 @@
     <!-- Expose the forwarder directly for access from our shell commands -->
     <service interface="it.arsinfo.myplugin.AlarmForwarder" ref="alarmForwarder"/>
 
-    <!-- Build our forwarder bean -->
-    <bean id="topologyForwarder" class="it.arsinfo.myplugin.TopologyForwarder">
-        <argument ref="apiClient"/>
-        <argument ref="edgeDao"/>
-    </bean>
-    <!-- Expose the forwarder directly for access from our shell commands -->
-    <service interface="it.arsinfo.myplugin.TopologyForwarder" ref="topologyForwarder"/>
 
     <!-- Build and expose the JAX-RS annotated webhook handler.
          This will automatically mount the endpoint over the REST API. -->
-    <bean id="webhookHandlerImpl" class="it.arsinfo.myplugin.WebhookHandlerImpl" />
+    <bean id="webhookHandlerImpl" class="it.arsinfo.myplugin.WebhookHandlerImpl" >
+        <argument ref="clientManager"/>
+    </bean>
     <service interface="it.arsinfo.myplugin.WebhookHandler" ref="webhookHandlerImpl">
         <service-properties>
             <entry key="application-path" value="/rest" />

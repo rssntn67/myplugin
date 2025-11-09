@@ -13,7 +13,7 @@ public class ApiClientProviderImpl implements ApiClientProvider {
 
     private static ApiClient getApiClient(ApiClientCredentials credentials) {
         ApiClient apiClient = new ApiClient();
-        apiClient.setBasePath(credentials.opennmsBaseUrl);
+        apiClient.setBasePath(credentials.url);
         apiClient.setUsername(credentials.username);
         apiClient.setPassword(credentials.password);
         return apiClient;

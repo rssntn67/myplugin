@@ -10,7 +10,7 @@ public class ApiClientProvider {
      * @param credentials the credentials to use for the client.
      * @return a NutanixApiClient client
      */
-    ApiClientService client(final ApiClientCredentials credentials) {
+    public ApiClientService client(final ApiClientCredentials credentials) {
         try {
             return new ApiClientService(getService(credentials));
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package it.arsinfo.myplugin;
 
+import it.arsinfo.myplugin.client.ClientManager;
 import it.arsinfo.snmp.client.ApiClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +12,8 @@ public class WebhookHandlerImpl implements WebhookHandler {
 
     private final ApiClientService snmpService;
 
-    public WebhookHandlerImpl(ApiClientService snmpService) {
-        this.snmpService = snmpService;
+    public WebhookHandlerImpl(ClientManager manager) {
+        this.snmpService = manager.getSnmpApiService();
     }
 
     @Override

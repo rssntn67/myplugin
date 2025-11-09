@@ -3,7 +3,6 @@ package it.arsinfo.myplugin;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import it.arsinfo.myplugin.AlarmForwarder;
 import org.junit.Test;
 import org.opennms.integration.api.v1.model.Alarm;
 import org.opennms.integration.api.v1.model.Severity;
@@ -20,7 +19,7 @@ public class AlarmForwarderTest {
                 .setSeverity(Severity.CRITICAL)
                 .build();
 
-        Alert alert = AlarmForwarder.toAlert(alarm);
+        Alert alert = AlarmForwarder.toAlert(alarm, null);
 
         assertThat(alert.getStatus(), equalTo(Alert.Status.CRITICAL));
     }

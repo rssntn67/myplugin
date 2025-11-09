@@ -9,7 +9,7 @@ public class ApiClientCredentials {
     /**
      * The URL of the OpenNMS orchestrator.
      */
-    public final String opennmsBaseUrl;
+    public final String url;
 
     /**
      * The username used to authenticate the connection to the PRISM ELEMENT.
@@ -23,21 +23,21 @@ public class ApiClientCredentials {
 
 
     private ApiClientCredentials(final Builder builder) {
-        this.opennmsBaseUrl = Objects.requireNonNull(builder.prismUrl);
+        this.url = Objects.requireNonNull(builder.url);
         this.username = builder.username;
         this.password = builder.password;
     }
 
     public static class Builder {
-        private String prismUrl;
+        private String url;
         private String username;
         private String password;
 
         private Builder() {
         }
 
-        public Builder withPrismUrl(final String orchestratorUrl) {
-            this.prismUrl = orchestratorUrl;
+        public Builder withUrl(final String orchestratorUrl) {
+            this.url = orchestratorUrl;
             return this;
         }
 
@@ -61,18 +61,10 @@ public class ApiClientCredentials {
         return new Builder();
     }
 
-    public static Builder builder(ApiClientCredentials credentials) {
-        return builder()
-                .withPrismUrl(credentials.opennmsBaseUrl)
-                .withUsername(credentials.username)
-                .withPassword(credentials.password);
-
-    }
-
     @Override
     public String toString() {
         return "ApiClientCredentials{" +
-                "prismUrl='" + opennmsBaseUrl + '\'' +
+                "prismUrl='" + url + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
@@ -83,11 +75,10 @@ public class ApiClientCredentials {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ApiClientCredentials)) {
+        if (!(o instanceof ApiClientCredentials that)) {
             return false;
         }
-        final ApiClientCredentials that = (ApiClientCredentials) o;
-        return Objects.equals(this.opennmsBaseUrl, that.opennmsBaseUrl) &&
+        return Objects.equals(this.url, that.url) &&
                 Objects.equals(this.username, that.username) &&
                 Objects.equals(this.password, that.password);
 
@@ -95,7 +86,7 @@ public class ApiClientCredentials {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.opennmsBaseUrl,
+        return Objects.hash(this.url,
                  this.username, this.password);
     }
 
