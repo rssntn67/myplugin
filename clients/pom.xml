@@ -30,6 +30,7 @@
     <modules>
         <module>opennms</module>
         <module>spring</module>
+        <module>snmp</module>
     </modules>
 
 </project>

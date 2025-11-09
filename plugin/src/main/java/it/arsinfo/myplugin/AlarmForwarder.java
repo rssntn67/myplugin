@@ -1,20 +1,19 @@
 package it.arsinfo.myplugin;
 
-import java.util.List;
-import java.util.Objects;
-
-import it.arsinfo.spring.client.ApiClient;
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
+import it.arsinfo.spring.client.ApiClientService;
+import it.arsinfo.spring.client.model.Alert;
 import org.opennms.integration.api.v1.alarms.AlarmLifecycleListener;
 import org.opennms.integration.api.v1.events.EventForwarder;
 import org.opennms.integration.api.v1.model.Alarm;
 import org.opennms.integration.api.v1.model.immutables.ImmutableEventParameter;
 import org.opennms.integration.api.v1.model.immutables.ImmutableInMemoryEvent;
-import it.arsinfo.spring.client.model.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
+import java.util.List;
+import java.util.Objects;
 
 public class AlarmForwarder implements AlarmLifecycleListener {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmForwarder.class);
@@ -27,11 +26,11 @@ public class AlarmForwarder implements AlarmLifecycleListener {
     private final Meter eventsForwarded = metrics.meter("eventsForwarded");
     private final Meter eventsFailed = metrics.meter("eventsFailed");
 
-    private final ApiClient apiClient;
+    private final ApiClientService apiClientService;
     private final EventForwarder eventForwarder;
 
-    public AlarmForwarder(ApiClient apiClient, EventForwarder eventForwarder) {
-        this.apiClient = Objects.requireNonNull(apiClient);
+    public AlarmForwarder(ApiClientService apiClientService, EventForwarder eventForwarder) {
+        this.apiClientService = Objects.requireNonNull(apiClientService);
         this.eventForwarder = Objects.requireNonNull(eventForwarder);
     }
 
@@ -46,8 +45,8 @@ public class AlarmForwarder implements AlarmLifecycleListener {
         Alert alert = toAlert(alarm);
 
         // Forward the alarm
-        apiClient.sendAlert(alert).whenComplete((v,ex) -> {
-            if (ex != null) {
+        boolean success = apiClientService.sendAlert(alert, alarm.getReductionKey());
+            if (!success) {
                 eventsForwarded.mark();
                 eventForwarder.sendAsync(ImmutableInMemoryEvent.newBuilder()
                         .setUei(SEND_EVENT_FAILED_UEI)
@@ -57,10 +56,9 @@ public class AlarmForwarder implements AlarmLifecycleListener {
                                 .build())
                         .addParameter(ImmutableEventParameter.newBuilder()
                                 .setName("message")
-                                .setValue(ex.getMessage())
+                                .setValue("ERROR see LOGS")
                                 .build())
                         .build());
-                LOG.warn("Sending event for alarm with reduction-key: {} failed.", alarm.getReductionKey(), ex);
             } else {
                 eventsFailed.mark();
                 eventForwarder.sendAsync(ImmutableInMemoryEvent.newBuilder()
@@ -70,9 +68,7 @@ public class AlarmForwarder implements AlarmLifecycleListener {
                                 .setValue(alarm.getReductionKey())
                                 .build())
                         .build());
-                LOG.info("Event sent successfully for alarm with reduction-key: {}", alarm.getReductionKey());
             }
-        });
     }
 
     @Override
@@ -96,19 +92,11 @@ public class AlarmForwarder implements AlarmLifecycleListener {
         if (alarm.isAcknowledged()) {
             return Alert.Status.ACKNOWLEDGED;
         }
-        switch (alarm.getSeverity()) {
-            case INDETERMINATE:
-            case CLEARED:
-            case NORMAL:
-                return Alert.Status.OK;
-            case WARNING:
-            case MINOR:
-                return Alert.Status.WARNING;
-            case MAJOR:
-            case CRITICAL:
-            default:
-                return Alert.Status.CRITICAL;
-        }
+        return switch (alarm.getSeverity()) {
+            case INDETERMINATE, CLEARED, NORMAL -> Alert.Status.OK;
+            case WARNING, MINOR -> Alert.Status.WARNING;
+            default -> Alert.Status.CRITICAL;
+        };
     }
 
     public MetricRegistry getMetrics() {

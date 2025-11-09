@@ -1,8 +1,8 @@
 package it.arsinfo.myplugin;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import it.arsinfo.myplugin.AlarmForwarder;
 import it.arsinfo.spring.client.ApiClient;
+import it.arsinfo.spring.client.ApiClientService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.opennms.integration.api.v1.events.EventForwarder;
@@ -30,9 +30,10 @@ public class AlarmForwarderIT {
     @Test
     public void canForwardAlarm() {
         // Wire it up
-        ApiClient apiClient = new ApiClient(wireMockRule.url("/data/v2/alerts"), "<some-token>");
+        ApiClient apiClient = new ApiClient(wireMockRule.url("/data/v2/alerts"));
+        ApiClientService apiService = new ApiClientService(apiClient);
         EventForwarder eventForwarder = mock(EventForwarder.class);
-        AlarmForwarder alarmForwarder = new AlarmForwarder(apiClient, eventForwarder);
+        AlarmForwarder alarmForwarder = new AlarmForwarder(apiService, eventForwarder);
 
         // Stub the endpoint
         stubFor(post((urlEqualTo("/data/v2/alerts")))

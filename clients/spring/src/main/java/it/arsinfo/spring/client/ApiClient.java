@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import it.arsinfo.spring.client.model.Alert;
-import it.arsinfo.spring.client.model.Topology;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,20 +25,14 @@ public class ApiClient {
     private final OkHttpClient client;
     private final ObjectMapper mapper = new ObjectMapper();
     private String url;
-    private String apiKey;
 
-    public ApiClient(String url, String apiKey) {
+    public ApiClient(String url) {
         this.url = Objects.requireNonNull(url);
-        this.apiKey = Objects.requireNonNull(apiKey);
         this.client = new OkHttpClient();
     }
 
     public CompletableFuture<Void> sendAlert(Alert alert) {
         return doPost(url, alert);
-    }
-
-    public CompletableFuture<Void> forwardTopology(Topology topology) {
-        return doPost(url, topology);
     }
 
     private CompletableFuture<Void> doPost(String url, Object requestBodyPayload) {
@@ -53,7 +46,6 @@ public class ApiClient {
                 .url(url)
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + apiKey)
                 .addHeader("User-Agent", ApiClient.class.getCanonicalName())
                 .post(body)
                 .build();

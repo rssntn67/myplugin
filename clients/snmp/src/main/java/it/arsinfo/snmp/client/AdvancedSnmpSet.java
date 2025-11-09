@@ -1,4 +1,4 @@
-package it.arsinfo.myplugin.snmp;
+package it.arsinfo.snmp.client;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -24,15 +24,19 @@ public class AdvancedSnmpSet {
     private Snmp snmp;
     private CommunityTarget target;
 
-    public AdvancedSnmpSet(String ipAddress, String community) throws IOException {
+    public AdvancedSnmpSet(String address, String community, Integer version) throws IOException {
         TransportMapping<?> transport = new DefaultUdpTransportMapping();
         snmp = new Snmp(transport);
         transport.listen();
 
         target = new CommunityTarget();
-        target.setAddress(GenericAddress.parse("udp:" + ipAddress + "/161"));
+        target.setAddress(GenericAddress.parse(address));
         target.setCommunity(new OctetString(community));
-        target.setVersion(SnmpConstants.version2c);
+        if (version == 0) {
+            target.setVersion(SnmpConstants.version1);
+        } else {
+            target.setVersion(SnmpConstants.version2c);
+        }
         target.setTimeout(1500);
         target.setRetries(2);
     }
@@ -108,34 +112,6 @@ public class AdvancedSnmpSet {
             }
         } catch (IOException e) {
             System.err.println("Error closing: " + e.getMessage());
-        }
-    }
-
-    public static void main(String[] args) {
-        AdvancedSnmpSet snmpSet = null;
-
-        try {
-            snmpSet = new AdvancedSnmpSet("192.168.1.1", "private");
-
-            // Example 1: Set multiple values at once
-            Map<String, Variable> multipleValues = new HashMap<>();
-            multipleValues.put("1.3.6.1.2.1.1.4.0", new OctetString("admin@company.com"));
-            multipleValues.put("1.3.6.1.2.1.1.6.0", new OctetString("Server Room"));
-            multipleValues.put("1.3.6.1.2.1.1.7.0", new Integer32(72));
-
-            boolean success = snmpSet.setMultiple(multipleValues);
-            System.out.println("Multiple SET: " + (success ? "Success" : "Failed"));
-
-            // Example 2: Type-safe individual sets
-            snmpSet.setString("1.3.6.1.2.1.1.5.0", "MyRouter");
-            snmpSet.setInteger("1.3.6.1.2.1.1.7.0", 76);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (snmpSet != null) {
-                snmpSet.close();
-            }
         }
     }
 }

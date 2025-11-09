@@ -1,4 +1,4 @@
-package it.arsinfo.myplugin.snmp;
+package it.arsinfo.snmp.client;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;

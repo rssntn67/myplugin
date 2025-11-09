@@ -1,15 +1,19 @@
 package it.arsinfo.myplugin;
 
-import javax.ws.rs.core.Response;
-
-import it.arsinfo.myplugin.snmp.AdvancedSnmpSet;
+import it.arsinfo.snmp.client.ApiClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import javax.ws.rs.core.Response;
 
 public class WebhookHandlerImpl implements WebhookHandler {
     private static final Logger LOG = LoggerFactory.getLogger(WebhookHandlerImpl.class);
+
+    private final ApiClientService snmpService;
+
+    public WebhookHandlerImpl(ApiClientService snmpService) {
+        this.snmpService = snmpService;
+    }
 
     @Override
     public Response ping() {
@@ -24,14 +28,11 @@ public class WebhookHandlerImpl implements WebhookHandler {
 
     @Override
     public Response handleSync(String body) {
-        try {
-            AdvancedSnmpSet snmpsetter = new AdvancedSnmpSet(body, body);
-            snmpsetter.setString("body", "sync");
-            //tell the system to call
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        boolean responseSet = this.snmpService.set(".1.2.3.4.5.6.7", "true");
+        if (responseSet) {
+            return Response.ok("Sync Started").build();
         }
-        return null;
+        return Response.status(Response.Status.EXPECTATION_FAILED).entity("Sync Failed").build();
     }
 }
 
