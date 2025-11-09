@@ -8,7 +8,7 @@ import org.apache.karaf.shell.api.action.Command;
 import org.apache.karaf.shell.api.action.lifecycle.Reference;
 import org.apache.karaf.shell.api.action.lifecycle.Service;
 import it.arsinfo.myplugin.TopologyForwarder;
-import it.arsinfo.myplugin.model.Topology;
+import it.arsinfo.spring.client.model.Topology;
 
 @Command(scope = "opennms-myplugin", name = "push-topology", description = "Push the topology")
 @Service

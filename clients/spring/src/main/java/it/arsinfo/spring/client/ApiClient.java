@@ -1,11 +1,11 @@
-package it.arsinfo.myplugin;
+package it.arsinfo.spring.client;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-import it.arsinfo.myplugin.model.Alert;
-import it.arsinfo.myplugin.model.Topology;
+import it.arsinfo.spring.client.model.Alert;
+import it.arsinfo.spring.client.model.Topology;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

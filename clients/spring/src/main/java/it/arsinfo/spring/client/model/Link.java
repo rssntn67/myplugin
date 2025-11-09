@@ -1,4 +1,4 @@
-package it.arsinfo.myplugin.model;
+package it.arsinfo.spring.client.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

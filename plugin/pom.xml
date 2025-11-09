@@ -48,6 +48,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>it.arsinfo</groupId>
+            <artifactId>opennms-client-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>it.arsinfo</groupId>
+            <artifactId>spring-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
@@ -106,6 +116,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
             <scope>test</scope>
         </dependency>
         <dependency>

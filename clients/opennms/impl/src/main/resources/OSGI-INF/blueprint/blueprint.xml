@@ -1,0 +1,15 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+                http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+                http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
+                http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+    <!-- Configuration stored in $OPENNMS_HOME/etc/it.arsinfo.myplugin.cfg file -->
+
+    <!-- Pull in service implementations from the OSGi registry -->
+
+    <!-- Build our API client -->
+    <bean id="apiClientProvider" class="it.arsinfo.opennms.client.impl.ApiClientProviderImpl"/>
+    <service interface="it.arsinfo.opennms.client.api.ApiClientProvider" ref="apiClientProvider"/>
+</blueprint>

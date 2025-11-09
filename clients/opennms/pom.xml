@@ -10,7 +10,7 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>opennms-client</artifactId>
-    <name>OpenNMS :: Client</name>
+    <name>OpenNMS :: Plugins :: My Plugin :: OpenNMS :: Client</name>
 
     <modules>
         <module>api</module>

@@ -2,7 +2,7 @@ package it.arsinfo.myplugin;
 
 import org.json.JSONException;
 import org.junit.Test;
-import it.arsinfo.myplugin.model.Topology;
+import it.arsinfo.spring.client.model.Topology;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

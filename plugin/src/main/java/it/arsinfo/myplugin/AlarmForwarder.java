@@ -3,12 +3,13 @@ package it.arsinfo.myplugin;
 import java.util.List;
 import java.util.Objects;
 
+import it.arsinfo.spring.client.ApiClient;
 import org.opennms.integration.api.v1.alarms.AlarmLifecycleListener;
 import org.opennms.integration.api.v1.events.EventForwarder;
 import org.opennms.integration.api.v1.model.Alarm;
 import org.opennms.integration.api.v1.model.immutables.ImmutableEventParameter;
 import org.opennms.integration.api.v1.model.immutables.ImmutableInMemoryEvent;
-import it.arsinfo.myplugin.model.Alert;
+import it.arsinfo.spring.client.model.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

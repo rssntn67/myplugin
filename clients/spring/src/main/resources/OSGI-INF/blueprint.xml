@@ -1,0 +1,22 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+                http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+                http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
+                http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+    <!-- Configuration stored in $OPENNMS_HOME/etc/it.arsinfo.myplugin.cfg file -->
+    <cm:property-placeholder id="mypluginPluginProperties" persistent-id="it.arsinfo.myplugin" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="url" value="http://127.0.0.1:8080/api/v1" />
+            <cm:property name="apiKey" value="TOKEN" />
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <!-- Build our API client -->
+    <bean id="springApiClient" class="it.arsinfo.spring.client.ApiClient">
+        <argument value="${url}"/>
+        <argument value="${apiKey}"/>
+    </bean>
+    <service interface="it.arsinfo.spring.client.ApiClient" ref="springApiClient"/>
+</blueprint>

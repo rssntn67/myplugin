@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>opennms-client-impl</artifactId>
-    <name>OpenNMS :: Client :: IMPL</name>
+    <name>OpenNMS :: Plugins :: My Plugin :: OpenNMS :: Client :: IMPL</name>
 
     <packaging>bundle</packaging>
 

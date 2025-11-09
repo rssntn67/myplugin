@@ -1,5 +1,17 @@
 package it.arsinfo.myplugin;
 
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import it.arsinfo.myplugin.AlarmForwarder;
+import it.arsinfo.spring.client.ApiClient;
+import org.junit.Rule;
+import org.junit.Test;
+import org.opennms.integration.api.v1.events.EventForwarder;
+import org.opennms.integration.api.v1.model.Alarm;
+import org.opennms.integration.api.v1.model.Severity;
+import org.opennms.integration.api.v1.model.immutables.ImmutableAlarm;
+
+import java.util.concurrent.TimeUnit;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
@@ -9,17 +21,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.mock;
-
-import java.util.concurrent.TimeUnit;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.opennms.integration.api.v1.events.EventForwarder;
-import org.opennms.integration.api.v1.model.Alarm;
-import org.opennms.integration.api.v1.model.Severity;
-import org.opennms.integration.api.v1.model.immutables.ImmutableAlarm;
-
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class AlarmForwarderIT {
 

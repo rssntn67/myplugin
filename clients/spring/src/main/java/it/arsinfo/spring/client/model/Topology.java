@@ -1,4 +1,4 @@
-package it.arsinfo.myplugin.model;
+package it.arsinfo.spring.client.model;
 
 import java.util.LinkedList;
 import java.util.List;

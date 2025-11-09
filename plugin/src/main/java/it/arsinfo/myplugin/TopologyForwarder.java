@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+import it.arsinfo.spring.client.ApiClient;
 import org.opennms.integration.api.v1.dao.EdgeDao;
 import org.opennms.integration.api.v1.model.Node;
 import org.opennms.integration.api.v1.model.TopologyEdge;
 import org.opennms.integration.api.v1.model.TopologyPort;
 import org.opennms.integration.api.v1.model.TopologyProtocol;
 import org.opennms.integration.api.v1.model.TopologySegment;
-import it.arsinfo.myplugin.model.Link;
-import it.arsinfo.myplugin.model.Topology;
+import it.arsinfo.spring.client.model.Link;
+import it.arsinfo.spring.client.model.Topology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

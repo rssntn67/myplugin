@@ -2,9 +2,9 @@ package it.arsinfo.myplugin;
 
 import java.time.Instant;
 
+import it.arsinfo.spring.client.model.Alert;
 import org.json.JSONException;
 import org.junit.Test;
-import it.arsinfo.myplugin.model.Alert;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

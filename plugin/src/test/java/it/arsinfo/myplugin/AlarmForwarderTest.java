@@ -3,11 +3,12 @@ package it.arsinfo.myplugin;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import it.arsinfo.myplugin.AlarmForwarder;
 import org.junit.Test;
 import org.opennms.integration.api.v1.model.Alarm;
 import org.opennms.integration.api.v1.model.Severity;
 import org.opennms.integration.api.v1.model.immutables.ImmutableAlarm;
-import it.arsinfo.myplugin.model.Alert;
+import it.arsinfo.spring.client.model.Alert;
 
 public class AlarmForwarderTest {
 
