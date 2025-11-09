@@ -1,7 +1,5 @@
 package it.arsinfo.opennms.client.api;
 
-import java.util.List;
-
 import it.arsinfo.opennms.client.api.model.Ack;
 import it.arsinfo.opennms.client.api.model.AckCollection;
 

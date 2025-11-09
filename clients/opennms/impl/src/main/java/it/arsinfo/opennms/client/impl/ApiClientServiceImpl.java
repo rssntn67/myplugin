@@ -2,11 +2,11 @@ package it.arsinfo.opennms.client.impl;
 
 import it.arsinfo.opennms.client.api.ApiClientService;
 import it.arsinfo.opennms.client.api.OpenNMSApiException;
-import it.arsinfo.opennms.client.api.model.Ack;
-import it.arsinfo.opennms.client.api.model.AckCollection;
 import it.arsinfo.opennms.client.impl.api.DefaultApi;
 import it.arsinfo.opennms.client.impl.handler.ApiClient;
 import it.arsinfo.opennms.client.impl.handler.ApiException;
+import it.arsinfo.opennms.client.api.model.Ack;
+import it.arsinfo.opennms.client.api.model.AckCollection;
 import it.arsinfo.opennms.client.impl.model.OnmsAcknowledgment;
 import it.arsinfo.opennms.client.impl.model.OnmsAcknowledgmentCollection;
 
