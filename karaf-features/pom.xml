@@ -84,7 +84,11 @@
                             </framework>
                             <features>
                                 <feature>opennms-plugins-myplugin</feature>
+                                <feature>opennms-client</feature>
+                                <feature>spring-client</feature>
+                                <feature>snmp-client</feature>
                                 <feature>okhttp</feature>
+                                <feature>jackson</feature>
                             </features>
                         </configuration>
                     </execution>

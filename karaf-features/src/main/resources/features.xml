@@ -5,13 +5,34 @@
         <feature dependency="true">aries-blueprint</feature>
         <feature dependency="true">shell</feature>
         <feature version="${opennms.api.version}" dependency="true">opennms-integration-api</feature>
+        <feature version="${jackson.version}" dependency="true">jackson</feature>
+        <bundle dependency="true">mvn:org.apache.commons/commons-jexl3/${jexl.version}</bundle>
+        <bundle dependency="true">mvn:javax.ws.rs/javax.ws.rs-api/2.1.1</bundle>
+        <feature version="${project.version}">opennms-client</feature>
+        <feature version="${project.version}">spring-client</feature>
+        <feature version="${project.version}">snmp-client</feature>
+        <bundle>mvn:it.arsinfo/myplugin-plugin/${project.version}</bundle>
+    </feature>
+
+    <feature name="opennms-client" description="OpenNMS :: Plugins :: OpenNMS :: Client" version="${project.version}">
         <feature version="${okhttp.version}" dependency="true">okhttp</feature>
         <feature version="${jackson.version}" dependency="true">jackson</feature>
         <bundle dependency="true">mvn:org.apache.commons/commons-jexl3/${jexl.version}</bundle>
-        <bundle dependency="true">mvn:io.dropwizard.metrics/metrics-core/${metrics.version}</bundle>
-        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j.bundle.version}</bundle>
         <bundle dependency="true">mvn:javax.ws.rs/javax.ws.rs-api/2.1.1</bundle>
-        <bundle>mvn:it.arsinfo/myplugin-plugin/${project.version}</bundle>
+        <bundle>mvn:it.arsinfo/opennms-client-impl/${project.version}</bundle>
+    </feature>
+
+    <feature name="spring-client" description="OpenNMS :: Plugins :: Spring :: Client" version="${project.version}">
+        <feature version="${okhttp.version}" dependency="true">okhttp</feature>
+        <feature version="${jackson.version}" dependency="true">jackson</feature>
+        <bundle dependency="true">mvn:org.apache.commons/commons-jexl3/${jexl.version}</bundle>
+        <bundle dependency="true">mvn:javax.ws.rs/javax.ws.rs-api/2.1.1</bundle>
+        <bundle>mvn:it.arsinfo/spring-client/${project.version}</bundle>
+    </feature>
+
+    <feature name="snmp-client" description="OpenNMS :: Plugins :: Snmp :: Client" version="${project.version}">
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.snmp4j/${snmp4j.bundle.version}</bundle>
+        <bundle>mvn:it.arsinfo/snmp-client/${project.version}</bundle>
     </feature>
 
     <feature name="okhttp" description="okhttp" version="${okhttp.version}">
