@@ -116,5 +116,24 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>it.arsinfo</groupId>
+            <artifactId>spring-client</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.arsinfo</groupId>
+            <artifactId>snmp-client</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.arsinfo</groupId>
+            <artifactId>opennms-client-impl</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>
