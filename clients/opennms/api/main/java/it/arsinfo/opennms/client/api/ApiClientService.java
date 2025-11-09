@@ -3,6 +3,7 @@ package it.arsinfo.opennms.client.api;
 import java.util.List;
 
 import it.arsinfo.opennms.client.api.model.Ack;
+import it.arsinfo.opennms.client.api.model.AckCollection;
 
 public interface ApiClientService {
 
@@ -13,23 +14,23 @@ public interface ApiClientService {
      * @return a {@link Ack}s
      * @throws OpenNMSApiException "see message for detail"
      */
-    Ack getAckById(String id) throws OpenNMSApiException;
+    Ack getAckById(Integer id) throws OpenNMSApiException;
 
     /**
      * Get the Ack by uuid.
      *
      * @param  alarmId the alarm id of the Ack
-     * @return a List od {@link Ack}s
+     * @return a {@link AckCollection}s
      * @throws OpenNMSApiException "see message for detail"
      */
-    List<Ack> getAckByAlarmId(String alarmId) throws OpenNMSApiException;
+    AckCollection getAckByAlarmId(Integer alarmId) throws OpenNMSApiException;
 
     /**
      * Get the Acks.
      *
-     * @return a list of {@link Ack}s
+     * @return {@link AckCollection}s
      * @throws OpenNMSApiException "see message for detail"
      */
-    List<Ack> getAcks() throws OpenNMSApiException;
+    AckCollection getAcks(Integer limit, Integer offset) throws OpenNMSApiException;
 
 }

@@ -27,7 +27,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.arsinfo.myplugin.clients.opennms.impl.*</Export-Package>
+                        <Export-Package>it.arsinfo.opennms.client.impl.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -35,8 +35,11 @@
     </build>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
-        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myplugin-clients-opennms-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -61,16 +64,6 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
             <version>${okhttp.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.gsonfire</groupId>
-            <artifactId>gson-fire</artifactId>
-            <version>${gson.fire.version}</version>
         </dependency>
 
         <dependency>

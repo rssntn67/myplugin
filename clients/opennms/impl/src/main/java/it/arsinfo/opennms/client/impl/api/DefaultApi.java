@@ -15,20 +15,65 @@ package it.arsinfo.opennms.client.impl.api;
 
 import it.arsinfo.opennms.client.impl.handler.ApiClient;
 import it.arsinfo.opennms.client.impl.handler.ApiException;
+import it.arsinfo.opennms.client.impl.model.OnmsAcknowledgment;
 import it.arsinfo.opennms.client.impl.model.OnmsAcknowledgmentCollection;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultApi {
-    private ApiClient apiClient;
+    private final ApiClient apiClient;
+    private final static String relativePath="/acks";
 
     public DefaultApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
+    public OnmsAcknowledgment getAck(Integer id) throws ApiException{
+        if (id == null ) {
+            throw new ApiException("getAck: id cannot be null");
+        }
+        return apiClient.get(relativePath+"/"+id, OnmsAcknowledgment.class);
+    }
+
     public OnmsAcknowledgmentCollection getAcks() throws ApiException {
-        String relativePath="/acks";
         return apiClient.get(relativePath, OnmsAcknowledgmentCollection.class);
     }
 
+    public OnmsAcknowledgmentCollection getAcksByAlarmId(Integer refId) throws ApiException {
+        if (refId == null ) {
+            throw new ApiException("getAcksByAlarmId: refId cannot be null");
+        }
+        List<String> parameters= new ArrayList<>();
+        parameters.add("refId="+refId);
+        parameters.add("limit=0");
+        parameters.add("ackType=ALARM");
+
+        return apiClient.get(relativePath+buildParameter(parameters), OnmsAcknowledgmentCollection.class);
+    }
+
+    public OnmsAcknowledgmentCollection getAcks(Integer limit, Integer offset) throws ApiException {
+        List<String> parameters= new ArrayList<>();
+        if (limit != null && limit != 10) {
+            parameters.add("limit="+limit);
+        }
+        if (offset != null && offset != 0) {
+            parameters.add("offset="+offset);
+        }
+        return apiClient.get(relativePath+buildParameter(parameters), OnmsAcknowledgmentCollection.class);
+    }
+
+    private static String buildParameter(List<String> parameters) {
+        if (parameters.isEmpty()) {
+            return "";
+        }
+        if (parameters.size() == 1 ) {
+            return "?"+parameters.get(0);
+        }
+        StringBuilder parameter = new StringBuilder("?" + parameters.get(0));
+        for(int i=1; i< parameters.size(); i++) {
+            parameter.append("&").append(parameters.get(i));
+        }
+        return parameter.toString();
+    }
 }

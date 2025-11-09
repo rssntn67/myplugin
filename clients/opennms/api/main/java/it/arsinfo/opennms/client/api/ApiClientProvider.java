@@ -9,6 +9,4 @@ public interface ApiClientProvider {
      */
     ApiClientService client(final ApiClientCredentials credentials);
 
-    boolean validate(final ApiClientCredentials credentials);
-
 }

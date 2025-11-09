@@ -21,7 +21,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>org.opennms.myplugin.client.opennms.api.*</Export-Package>
+                        <Export-Package>it.arsinfo.opennms.client.api.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -29,12 +29,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.opennms.integration.api</groupId>
-            <artifactId>api</artifactId>
-            <version>${opennms.api.version}</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

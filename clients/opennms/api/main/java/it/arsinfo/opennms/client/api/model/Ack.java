@@ -1,71 +1,79 @@
 package it.arsinfo.opennms.client.api.model;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 public class Ack {
-    public final String uuid;
-    public final String severity;
-    public final String alertType;
-    public final String message;
-    public final String descr;
+    public enum AckType {
+        UNSPECIFIED,
+        ALARM,
+        NOTIFICATION
+    }
+
+    public enum AckAction {
+        UNSPECIFIED,
+        ACKNOWLEDGE,
+        UNACKNOWLEDGE,
+        ESCALATE,
+        CLEAR
+    }
+
+    public final Integer id;
+    public final AckType ackType;
+    public final AckAction ackAction;
+    public final String ackUser;
+    public final Date ackTime;
+    public final Integer refId;
 
 
 
     private Ack(Builder builder) {
-        this.uuid = Objects.requireNonNull(builder.uuid);
-        this.severity = Objects.requireNonNull(builder.severity);
-        this.alertType = Objects.requireNonNull(builder.alertType);
-        this.message = Objects.requireNonNull(builder.message);
-        this.descr = Objects.requireNonNull(builder.descr);
-    }
-
-    @Override
-    public String toString() {
-        return "Alert{" +
-                "uuid='" + uuid + '\'' +
-                ", severity='" + severity + '\'' +
-                ", alertType='" + alertType + '\'' +
-                ", message='" + message + '\'' +
-                ", descr='" + descr + '\'' +
-                '}';
+        this.id = Objects.requireNonNull(builder.id);
+        this.ackType = Objects.requireNonNull(builder.ackType);
+        this.ackAction = Objects.requireNonNull(builder.ackAction);
+        this.ackUser = Objects.requireNonNull(builder.ackUser);
+        this.ackTime = Objects.requireNonNull(builder.ackTime);
+        this.refId = Objects.requireNonNull(builder.refId);
     }
 
     public static class Builder {
-        private String uuid;
-        private String severity;
-        private String alertType;
-
-        private String message;
-        private String descr;
+        private Integer id;
+        private AckType ackType;
+        private AckAction ackAction;
+        private String ackUser;
+        private Date ackTime;
+        private Integer refId;
 
         private Builder() {
         }
 
-        public Ack.Builder withUuid(final String uuid) {
-            this.uuid = uuid;
+        public Ack.Builder withId(final Integer id) {
+            this.id = id;
             return this;
         }
 
-        public Ack.Builder withSeverity(final String severity) {
-            this.severity = severity;
+        public Ack.Builder withAckType(final AckType ackType) {
+            this.ackType = ackType;
             return this;
         }
 
-        public Ack.Builder withMessage(final String message) {
-            this.message = message;
+        public Ack.Builder withAckAction(final AckAction ackAction) {
+            this.ackAction = ackAction;
             return this;
         }
 
-        public Ack.Builder withDescr(final String descr) {
-            this.descr = descr;
+        public Ack.Builder withAckUser(final String ackUser) {
+            this.ackUser = ackUser;
             return this;
         }
 
-        public Ack.Builder withAlertType(final String alertType) {
-            this.alertType = alertType;
+        public Ack.Builder withAckTime(final Date ackTime) {
+            this.ackTime = ackTime;
+            return this;
+        }
+
+        public Ack.Builder withRefId(Integer refId) {
+            this.refId = refId;
             return this;
         }
 
