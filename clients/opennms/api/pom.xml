@@ -21,18 +21,11 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.arsinfo.opennms.client.*</Export-Package>
+                        <Export-Package>it.arsinfo.opennms.client.api.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>
