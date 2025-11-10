@@ -1,5 +1,6 @@
 package it.arsinfo.spring.client;
 
+import it.arsinfo.spring.client.model.AckAlert;
 import it.arsinfo.spring.client.model.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,10 @@ public class ApiClientService {
 
     public ApiClientService(ApiClient apiClient) {
         this.apiClient = apiClient;
+    }
+    public boolean sendAck(AckAlert ackAlert) {
+        LOG.info("sendAck {}", ackAlert);
+        return true;
     }
 
     public boolean sendAlert(Alert alert, String reductionKey) {

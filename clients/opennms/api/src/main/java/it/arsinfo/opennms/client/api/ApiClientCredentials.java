@@ -64,7 +64,7 @@ public class ApiClientCredentials {
     @Override
     public String toString() {
         return "ApiClientCredentials{" +
-                "prismUrl='" + url + '\'' +
+                "url='" + url + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

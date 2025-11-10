@@ -14,6 +14,7 @@ import org.opennms.integration.api.v1.events.EventForwarder;
 import org.opennms.integration.api.v1.model.Alarm;
 import org.opennms.integration.api.v1.model.Severity;
 import org.opennms.integration.api.v1.model.immutables.ImmutableAlarm;
+import org.opennms.integration.api.v1.model.immutables.ImmutableNode;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +60,9 @@ public class AlarmForwarderIT {
         ApiClientService apiClientService = new ApiClientService(apiClient);
         ClientManager clientManager = mock(ClientManager.class);
         EventForwarder eventForwarder = mock(EventForwarder.class);
+        it.arsinfo.opennms.client.api.ApiClientService onmsService = mock(it.arsinfo.opennms.client.api.ApiClientService.class);
         when(clientManager.getSpringApiService()).thenReturn(apiClientService);
+        when(clientManager.getOnmsApiService()).thenReturn(onmsService);
         AlarmForwarder alarmForwarder = new AlarmForwarder(clientManager, eventForwarder);
 
         // Stub the endpoint
@@ -72,6 +75,8 @@ public class AlarmForwarderIT {
                 .setId(1)
                 .setReductionKey("hey:oh")
                 .setSeverity(Severity.CRITICAL)
+                .setNode(ImmutableNode.newBuilder().setId(19).setLabel("prove").build())
+                .setLastEventTime(new Date())
                 .build();
         alarmForwarder.handleNewOrUpdatedAlarm(alarm);
 
