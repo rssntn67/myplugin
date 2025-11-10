@@ -24,7 +24,7 @@ public class ApiClientTest {
         System.out.println("---getAcks---");
         System.out.println(defaultApi.getAcks());
         System.out.println("---getAcks(2,4)---");
-        System.out.println(defaultApi.getAcks(2,4));
+        System.out.println(defaultApi.getAcks(2,7000));
         System.out.println("---getAck(17202209)---");
         System.out.println(defaultApi.getAck(17202209));
         System.out.println("---getAcksByAlarmId(147624304)---");

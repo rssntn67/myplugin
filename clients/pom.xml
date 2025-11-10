@@ -9,21 +9,6 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.19.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.19.2</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-
     <artifactId>myplugin-clients</artifactId>
     <name>OpenNMS :: Plugins :: My Plugin :: Clients</name>
 

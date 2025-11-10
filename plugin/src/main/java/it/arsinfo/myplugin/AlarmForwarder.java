@@ -90,6 +90,12 @@ public class AlarmForwarder implements AlarmLifecycleListener {
 
     @Override
     public void handleDeletedAlarm(int alarmId, String reductionKey) {
+        try {
+            AckCollection ackCollection = onmsService.getAckByAlarmId(alarmId);
+
+        } catch (OpenNMSApiException e) {
+            throw new RuntimeException(e);
+        }
         // pass
     }
 
